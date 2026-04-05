@@ -1,12 +1,19 @@
-namespace XMLHttpRequest.Models;
-
-public class Produto
+namespace XMLHttpRequest.Models
 {
-    public int Id { get; set; }
-    public required string Nome { get; set; }
-    public required string Descricao { get; set; }
-    public decimal Preco { get; set; }
-    public int QuantidadeEstoque { get; set; }
-    public required string Categoria { get; set; }
-    public required string ImagemUrl { get; set; }
+    public class Produto
+    {
+        public int Id { get; set; }
+
+        public string Nome { get; set; }
+
+        public string Descricao { get; set; }
+
+        public decimal Preco { get; set; }
+
+        public int QuantidadeEstoque { get; set; }
+
+        public string Categoria { get; set; }
+
+        public string ImagemUrl { get; set; }
+    }
 }

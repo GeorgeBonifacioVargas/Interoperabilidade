@@ -1,3 +1,7 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
 @{
     ViewData["Title"] = "Produtos";
 }
@@ -9,17 +13,22 @@
 <div id="resultado"></div>
 
 <script>
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.open("GET", "/Home/ListarProdutos", true);
+
     function buscarProdutos() {
-        var xhr = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
 
-        xhr.open("GET", "/Home/ListarProdutos", true);
+            if (xmlhttp.readyState === 4) {
 
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
                 let resultado = document.getElementById("resultado");
 
-                if (xhr.status === 200) {
-                    let produtos = JSON.parse(xhr.responseText);
+                if (xmlhttp.status === 200) {
+
+                    let produtos = JSON.parse(xmlhttp.responseText);
+
                     resultado.innerHTML = "";
 
                     produtos.forEach(produto => {
@@ -33,12 +42,16 @@
                             </div>
                         `;
                     });
+
                 } else {
                     resultado.innerHTML = "Erro ao carregar produtos.";
                 }
             }
         };
 
-        xhr.send();
+        xmlhttp.send();
+        
     }
+
+
 </script>
