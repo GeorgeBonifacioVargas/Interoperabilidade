@@ -1,0 +1,44 @@
+@{
+    ViewData["Title"] = "Produtos";
+}
+
+<h1>Catálogo de Produtos</h1>
+
+<button onclick="buscarProdutos()">Carregar Produtos</button>
+
+<div id="resultado"></div>
+
+<script>
+    function buscarProdutos() {
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("GET", "/Home/ListarProdutos", true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                let resultado = document.getElementById("resultado");
+
+                if (xhr.status === 200) {
+                    let produtos = JSON.parse(xhr.responseText);
+                    resultado.innerHTML = "";
+
+                    produtos.forEach(produto => {
+                        resultado.innerHTML += `
+                            <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+                                <h3>${produto.nome}</h3>
+                                <p>${produto.descricao}</p>
+                                <strong>R$ ${produto.preco}</strong><br>
+                                <small>Categoria: ${produto.categoria}</small><br>
+                                <small>Estoque: ${produto.quantidadeEstoque}</small>
+                            </div>
+                        `;
+                    });
+                } else {
+                    resultado.innerHTML = "Erro ao carregar produtos.";
+                }
+            }
+        };
+
+        xhr.send();
+    }
+</script>
